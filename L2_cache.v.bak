@@ -1,0 +1,30 @@
+module L2_cache();
+
+parameter no_of_lines = 128;
+parameter no_of_bits_per_line = 32;
+parameter byte_size = 8;
+parameter address_size = 32;
+parameter tag_size = 25;
+parameter no_of_ways = 4;
+parameter index_size = 5;
+parameter no_of_LRU_bits = 2;
+parameter no_of_sets = 32;
+integer i, j;
+
+reg [no_of_bits_per_line-1:0] L2_mem [0:no_of_ways-1][0:no_of_sets-1];
+reg [tag_size-1:0] L2tag [0:no_of_ways-1][0:no_of_sets-1];
+reg valid [0:no_of_ways-1][0:no_of_sets-1];
+reg dirty [0:no_of_ways-1][0:no_of_sets-1];
+reg [no_of_LRU_bits-1:0] LRU [0:no_of_ways-1][0:no_of_sets-1];
+
+initial begin
+for ( i=0; i<no_of_sets; i=i+1 ) begin
+   for ( j=0; j<no_of_ways; j=j+1 ) begin
+      L2tag[j][i] = {tag_size{1'b0}};
+      valid[j][i] = 1'b0;
+      LRU[j][i] = {no_of_LRU_bits{1'b0}};
+   end
+end
+end
+
+endmodule

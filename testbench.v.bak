@@ -1,0 +1,15 @@
+module testbench ();
+
+reg clk, mode;
+reg [7:0] data_in;
+reg [31:0] address;
+
+wire Wait, hit1, hit2;
+wire [7:0] data_out;
+
+cache_controller test ( clk, mode, data_in, address, Wait, hit1, hit2, data_out );
+
+initial clk = 1'b0;
+always #5 clk = ~clk;
+
+endmodule
